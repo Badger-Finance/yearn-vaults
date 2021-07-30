@@ -119,3 +119,10 @@ def rando(accounts):
 @pytest.fixture
 def badgerRegistry(gov, BadgerRegistry):
     yield gov.deploy(BadgerRegistry, gov)
+
+@pytest.fixture
+def badgerBouncer(gov, BadgerBouncer):
+    bouncer = gov.deploy(BadgerBouncer)
+    bouncer.initialize("0x0", {"from": gov}) # Bouncer initialized with default merkle root set to 0x0
+    
+    yield bouncer
